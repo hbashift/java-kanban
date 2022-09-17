@@ -5,13 +5,16 @@ public class Task {
     protected String description;
     protected Integer id;
     protected Status status;
-
-    public Task(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.status = Status.NEW;
+    // default constructor and constructor with params
+    public Task(){
     }
 
+    public Task(String name, String description, Status status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+    // getters and setters for class attributes
     public String getName() {
         return name;
     }
@@ -43,7 +46,7 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
-
+    // hashCode, equals, toString override
     @Override
     public int hashCode() {
         int hash = 17;
@@ -79,5 +82,13 @@ public class Task {
                 && Objects.equals(description, comparedTask.description)
                 && Objects.equals(status, comparedTask.status);
     }
-}
 
+    @Override
+    public String toString() {
+        return "Task{"
+                + "name: " + name
+                + ", description: " + description
+                + ", id: " + id
+                + ", status: " + status + "}";
+    }
+}

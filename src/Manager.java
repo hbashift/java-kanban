@@ -6,30 +6,60 @@ public class Manager {
     HashMap<Integer, Subtask> SubtaskHashMap;
     HashMap<Integer, Epic> EpicHashMap;
     static int id;
-
+    // Constructor
     public Manager() {
         TaskHashMap = new HashMap<>();
         SubtaskHashMap = new HashMap<>();
         EpicHashMap = new HashMap<>();
-        id = 1;
+        id = 0;
     }
-
-    public void newTask(Task task) {
-        task.setId(id++);
+    // Adding new Task/Subtask/Epic to a manager
+    public int addNewTask(Task task) {
+        task.setId(++id);
         TaskHashMap.put(task.getId(), task);
+
+        return id;
     }
 
-    public void newSubtask(Subtask subtask) {
-        subtask.setId(id++);
+    public int addNewSubtask(Subtask subtask) {
+        subtask.setId(++id);
         SubtaskHashMap.put(subtask.getId(), subtask);
-        EpicHashMap.get(subtask.getEpicId()).getSubtasks().add(subtask.getId());
+
+        EpicHashMap.get(subtask.getEpicId()).addSubtaskId(subtask);
+        changeEpicStatus(subtask);
+
+        return id;
     }
 
-    public void newEpic(Epic epic) {
-        epic.setId(id++);
+    public int addNewEpic(Epic epic) {
+        epic.setId(++id);
         EpicHashMap.put(epic.getId(), epic);
+
+        return id;
+    }
+    // getters for Task/Subtask/Epic HashMaps
+    public HashMap<Integer, Task> getTasks() {
+        return TaskHashMap;
     }
 
+    public HashMap<Integer, Subtask> getSubtasks() {
+        return SubtaskHashMap;
+    }
+
+    public HashMap<Integer, Epic> getEpics() {
+        return EpicHashMap;
+    }
+    // getter for subtaskIds ArrayList from concrete Epic
+    public ArrayList<Subtask> getEpicSubtasks(Epic epic) {
+        ArrayList<Subtask> subtasks = new ArrayList<>();
+
+        for (int id : epic.getSubtasks()) {
+            subtasks.add(SubtaskHashMap.get(id));
+        }
+
+        return subtasks;
+    }
+    // getters for Task/Subtask/Epic by id
     public Task getTaskById(int id) {
         return TaskHashMap.get(id);
     }
@@ -41,41 +71,21 @@ public class Manager {
     public Epic getEpicById(int id) {
         return EpicHashMap.get(id);
     }
-
+    // update methods for Task/Subtask/Epic
     public void updateTask(Task task) {
-
-        // TODO узнать про то как статусы задаются
-        if (task.getStatus() == Status.NEW) {
-            task.setStatus(Status.IN_PROGRESS);
-        }
-
         TaskHashMap.replace(task.getId(), task);
     }
 
     public void updateSubtask(Subtask subtask) {
-        if (subtask.getStatus() == Status.NEW) {
-            subtask.setStatus(Status.IN_PROGRESS);
-        }
-
-        Epic epic = EpicHashMap.get(subtask.getEpicId());
-        Status status = checkEpicStatus(EpicHashMap.get(subtask.getEpicId()));
-
-        switch (status) {
-            case NEW:
-                epic.setStatus(Status.NEW);
-            case IN_PROGRESS:
-                epic.setStatus(Status.IN_PROGRESS);
-            case DONE:
-                epic.setStatus(Status.DONE);
-        }
-
         SubtaskHashMap.replace(subtask.getId(), subtask);
+
+        changeEpicStatus(subtask);
     }
 
     public void updateEpic(Epic epic) {
         EpicHashMap.replace(epic.getId(), epic);
     }
-
+    // status checker for Epic
     public Status checkEpicStatus(Epic epic) {
         Status checker = Status.NEW;
         ArrayList<Status> statusArrayList = new ArrayList<>();
@@ -91,13 +101,31 @@ public class Manager {
         for (Status status : statusArrayList) {
             if (!status.equals(statusArrayList.get(0))) {
                 checker = Status.IN_PROGRESS;
+                return checker;
             } else {
                 checker = statusArrayList.get(0);
             }
         }
         return checker;
     }
+    // status changer
+    private void changeEpicStatus(Subtask subtask){
+        Epic epic = EpicHashMap.get(subtask.getEpicId());
+        Status status = checkEpicStatus(EpicHashMap.get(subtask.getEpicId()));
 
+        switch (status) {
+            case NEW:
+                epic.setStatus(Status.NEW);
+                break;
+            case IN_PROGRESS:
+                epic.setStatus(Status.IN_PROGRESS);
+                break;
+            case DONE:
+                epic.setStatus(Status.DONE);
+                break;
+        }
+    }
+    // delete methods for Task/Subtask/Epic (all and by id)
     private void deleteAll() {
         TaskHashMap.clear();
         SubtaskHashMap.clear();
@@ -109,11 +137,16 @@ public class Manager {
     }
 
     public void deleteAllSubtasks() {
+        for (Epic epic : EpicHashMap.values()) {
+            epic.getSubtasks().clear();
+        }
+
         SubtaskHashMap.clear();
     }
 
     public void deleteAllEpics() {
         EpicHashMap.clear();
+        SubtaskHashMap.clear();
     }
 
     public void deleteTaskById(int id) {
@@ -122,8 +155,8 @@ public class Manager {
 
     public void deleteSubtaskById(int id) {
         Subtask subtask = SubtaskHashMap.get(id);
-        EpicHashMap.get(subtask.getEpicId()).getSubtasks().remove(id);
-
+        EpicHashMap.get(subtask.getEpicId()).getSubtasks().remove(subtask.getId());
+        changeEpicStatus(subtask);
         SubtaskHashMap.remove(id);
     }
 
@@ -135,15 +168,5 @@ public class Manager {
         }
 
         EpicHashMap.remove(id);
-    }
-
-    public ArrayList<Subtask> getEpicSubtasks(Epic epic) {
-        ArrayList<Subtask> subtasks = new ArrayList<>();
-
-        for (int id : epic.getSubtasks()) {
-            subtasks.add(SubtaskHashMap.get(id));
-        }
-
-        return subtasks;
     }
 }
