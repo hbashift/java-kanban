@@ -1,3 +1,6 @@
+import manager.Manager;
+import task.*;
+
 public class Main {
     public static void main(String[] args) {
         Manager manager = new Manager();
@@ -7,7 +10,7 @@ public class Main {
         Task task2 = new Task("Таска2", "Очень обычная таска", Status.IN_PROGRESS);
         final int task2Id = manager.addNewTask(task2);
 
-        Epic epic1 = new Epic("Эпик1", "Эпик");
+        Epic epic1 = new Epic("Эпик1", "Эпик", Status.NEW);
         final int epic1Id = manager.addNewEpic(epic1);
 
         Subtask subtask1 = new Subtask("Сабтаска 1", "Обычная сабтаска", Status.NEW, epic1);
@@ -15,7 +18,7 @@ public class Main {
         Subtask subtask2 = new Subtask("Сабтаска 2", "Очень обычная сабтаска", Status.IN_PROGRESS, epic1);
         final int subtask2Id = manager.addNewSubtask(subtask2);
 
-        Epic epic2 = new Epic("Эпик2", "Эпик2");
+        Epic epic2 = new Epic("Эпик2", "Эпик2", Status.NEW);
         final int epic2Id = manager.addNewEpic(epic2);
 
         Subtask subtask3 = new Subtask("Сабтаска3", "Прям обычная сабтаска", Status.NEW, epic2);
