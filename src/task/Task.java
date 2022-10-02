@@ -6,16 +6,18 @@ public class Task {
     protected String name;
     protected String description;
     protected Integer id;
-    protected Status status;
+    protected TaskStatus taskStatus;
+
     // default constructor and constructor with params
     public Task(){
     }
 
-    public Task(String name, String description, Status status) {
+    public Task(String name, String description, TaskStatus taskStatus) {
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.taskStatus = taskStatus;
     }
+
     // getters and setters for class attributes
     public String getName() {
         return name;
@@ -41,13 +43,14 @@ public class Task {
         this.id = id;
     }
 
-    public Status getStatus() {
-        return status;
+    public TaskStatus getStatus() {
+        return taskStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
     }
+
     // hashCode, equals, toString override
     @Override
     public int hashCode() {
@@ -63,8 +66,8 @@ public class Task {
 
         hash *= 31;
 
-        if (status != null)
-            hash += status.hashCode();
+        if (taskStatus != null)
+            hash += taskStatus.hashCode();
 
         hash *= 31;
 
@@ -82,7 +85,7 @@ public class Task {
         return Objects.equals(id, comparedTask.id)
                 && Objects.equals(name, comparedTask.name)
                 && Objects.equals(description, comparedTask.description)
-                && Objects.equals(status, comparedTask.status);
+                && Objects.equals(taskStatus, comparedTask.taskStatus);
     }
 
     @Override
@@ -91,6 +94,6 @@ public class Task {
                 + "name: " + name
                 + ", description: " + description
                 + ", id: " + id
-                + ", status: " + status + "}";
+                + ", taskStatus: " + taskStatus + "}";
     }
 }

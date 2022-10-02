@@ -6,8 +6,8 @@ import java.util.Objects;
 public class Epic extends Task {
     private ArrayList<Integer> subtaskIds;
 
-    public Epic(String name, String description, Status status) {
-        super(name, description, status);
+    public Epic(String name, String description, TaskStatus taskStatus) {
+        super(name, description, taskStatus);
         this.subtaskIds = new ArrayList<>();
     }
     //
@@ -37,8 +37,8 @@ public class Epic extends Task {
 
         hash *= 31;
 
-        if (status != null)
-            hash += status.hashCode();
+        if (taskStatus != null)
+            hash += taskStatus.hashCode();
 
         hash *= 31;
 
@@ -61,7 +61,7 @@ public class Epic extends Task {
         return Objects.equals(id, comparedEpic.id)
                 && Objects.equals(name, comparedEpic.name)
                 && Objects.equals(description, comparedEpic.description)
-                && Objects.equals(status, comparedEpic.status)
+                && Objects.equals(taskStatus, comparedEpic.taskStatus)
                 && Objects.equals(subtaskIds, comparedEpic.subtaskIds);
     }
 
@@ -71,7 +71,7 @@ public class Epic extends Task {
                 + "name: " + name
                 + ", description: " + description
                 + ", id: " + id
-                + ", status: " + status
+                + ", taskStatus: " + taskStatus
                 + ", subtaskIds: " + subtaskIds + "}";
     }
 }

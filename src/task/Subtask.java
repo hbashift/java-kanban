@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Subtask extends Task {
     private Integer epicId;
 
-    public Subtask(String name, String description, Status status, Epic epic) {
-        super(name, description, status);
+    public Subtask(String name, String description, TaskStatus taskStatus, Epic epic) {
+        super(name, description, taskStatus);
         this.epicId = epic.getId();
     }
     // getter and setter for epicId to whom subtask belongs
@@ -32,8 +32,8 @@ public class Subtask extends Task {
 
         hash *= 31;
 
-        if (status != null)
-            hash += status.hashCode();
+        if (taskStatus != null)
+            hash += taskStatus.hashCode();
 
         hash *= 31;
 
@@ -56,7 +56,7 @@ public class Subtask extends Task {
         return Objects.equals(id, comparedSubtask.id)
                 && Objects.equals(name, comparedSubtask.name)
                 && Objects.equals(description, comparedSubtask.description)
-                && Objects.equals(status, comparedSubtask.status)
+                && Objects.equals(taskStatus, comparedSubtask.taskStatus)
                 && Objects.equals(epicId, comparedSubtask.epicId);
     }
 
@@ -66,7 +66,7 @@ public class Subtask extends Task {
                 + "name: " + name
                 + ", description: " + description
                 + ", id: " + id
-                + ", status: " + status
+                + ", taskStatus: " + taskStatus
                 + ", epicId: " + epicId + "}";
     }
 }
