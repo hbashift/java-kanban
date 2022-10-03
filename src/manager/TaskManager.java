@@ -1,7 +1,7 @@
 package manager;
 
 import task.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public interface TaskManager {
@@ -13,14 +13,14 @@ public interface TaskManager {
     int addNewEpic(Epic epic);
 
     // getters for task.Task/task.Subtask/task.Epic HashMaps
-    ArrayList<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    ArrayList<Subtask> getAllSubtasks();
+    List<Subtask> getAllSubtasks();
 
-    ArrayList<Epic> getAllEpics();
+    List<Epic> getAllEpics();
 
     // getter for subtaskIds ArrayList from concrete task.Epic
-    ArrayList<Subtask> getEpicSubtasks(Epic epic);
+    List<Subtask> getEpicSubtasks(Epic epic);
 
     // getters for task.Task/task.Subtask/task.Epic by id
     Task getTask(int id);

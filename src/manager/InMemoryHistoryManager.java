@@ -5,13 +5,9 @@ import task.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-class InMemoryHistoryManager implements HistoryManager {
+public class InMemoryHistoryManager implements HistoryManager {
 
-    private final List<Task> history;
-
-    InMemoryHistoryManager() {
-        history = new ArrayList<>();
-    }
+    private final List<Task> history = new ArrayList<>();
 
     @Override
     public List<Task> getHistory() {

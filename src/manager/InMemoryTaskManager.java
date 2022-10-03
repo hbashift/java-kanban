@@ -51,23 +51,23 @@ class InMemoryTaskManager implements TaskManager {
 
     // getters for task.Task/task.Subtask/task.Epic HashMaps
     @Override
-    public ArrayList<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public ArrayList<Subtask> getAllSubtasks() {
+    public List<Subtask> getAllSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
     @Override
-    public ArrayList<Epic> getAllEpics() {
+    public List<Epic> getAllEpics() {
         return new ArrayList<>(epics.values());
     }
 
     // getter for subtaskIds ArrayList from concrete task.Epic
     @Override
-    public ArrayList<Subtask> getEpicSubtasks(Epic epic) {
+    public List<Subtask> getEpicSubtasks(Epic epic) {
         ArrayList<Subtask> subtasks = new ArrayList<>();
 
         for (int id : epic.getSubtasks()) {
