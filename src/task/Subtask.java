@@ -51,7 +51,7 @@ public class Subtask extends Task {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null && getClass() != obj.getClass()) return false;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Subtask comparedSubtask = (Subtask) obj;
         return Objects.equals(id, comparedSubtask.id)
                 && Objects.equals(name, comparedSubtask.name)
