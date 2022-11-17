@@ -17,12 +17,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             this.prev = prev;
         }
 
-        private Node(Node node) {
-            this.value = node.value;
-            this.next = node.next;
-            this.prev = node.prev;
-        }
-
         @Override
         public String toString() {
             return "Node:{" + value.toString() + "}";
@@ -134,8 +128,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     private boolean checkSize() {
         return size == 10;
     }
-
-
 
     public int getSize() {
         return size;
