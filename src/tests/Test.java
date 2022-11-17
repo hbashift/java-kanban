@@ -5,38 +5,49 @@ import manager.TaskManager;
 import task.*;
 
 public class Test {
-
-    public static void test1(TaskManager manager) {
+    public static void printHistory(TaskManager manager) {
+        System.out.println("\nPrinting History of the browsing");
+        List<Task> taskList = manager.getHistory();
+        for (Task task : taskList) {
+            System.out.println("\t\t" + task);
+        }
+        System.out.println("");
+    }
+    public static void Test_PrintingAl(TaskManager manager) {
         System.out.println("----------PRINTING ALL TYPES OF TASKS----------");
         manager.printAll();
         System.out.println('\n');
     }
 
-    public static void test2(TaskManager manager) {
+    public static void Test_HistoryManager(TaskManager manager) {
         System.out.println("----------CHECKING manager.getHistory()----------");
         System.out.println("1) " + manager.getEpic(3));
-        System.out.println("2) " + manager.getTask(1));
+        printHistory(manager);
+        System.out.println("2) " + manager.getEpic(7));
+        printHistory(manager);
         System.out.println("3) " + manager.getEpic(3));
-        System.out.println("4) " + manager.getSubtask(7));
+        printHistory(manager);
+        System.out.println("4) " + manager.getTask(1));
+        printHistory(manager);
         System.out.println("5) " + manager.getTask(2));
-        System.out.println("6) " + manager.getEpic(3));
-        System.out.println("7) " + manager.getTask(1));
-        System.out.println("8) " + manager.getEpic(3));
-        System.out.println("9) " + manager.getSubtask(7));
+        printHistory(manager);
+        System.out.println("6) " + manager.getTask(1));
+        printHistory(manager);
+        System.out.println("7) " + manager.getSubtask(5));
+        printHistory(manager);
+        System.out.println("8) " + manager.getSubtask(6));
+        printHistory(manager);
+        System.out.println("9) " + manager.getSubtask(5));
+        printHistory(manager);
         System.out.println("10) " + manager.getTask(2));
-        System.out.println("11) " + manager.getTask(2));
-        System.out.println('\n');
-
-        System.out.println("Printing history of browsing the tasks");
-        List<Task> taskList = manager.getHistory();
-        for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i+1) + ") " + taskList.get(i).toString());
-        }
-
-        System.out.println('\n');
+        printHistory(manager);
+        System.out.println("11) " + manager.getTask(1));
+        printHistory(manager);
+        System.out.println("12) " + manager.getTask(2));
+        printHistory(manager);
     }
 
-    public static void test3(TaskManager manager, Task task1, Task task2, Subtask subtask1, Subtask subtask2, Subtask subtask3) {
+    public static void Test_StatusUpdate(TaskManager manager, Task task1, Task task2, Subtask subtask1, Subtask subtask2, Subtask subtask3) {
         System.out.println("----------Status change: ----------\n"
         + "Task1 status changes from " + task1.getStatus() + " to " + TaskStatus.IN_PROGRESS + '\n'
         + "Task2 status changes from " + task2.getStatus() + " to " + TaskStatus.DONE + '\n'
@@ -64,7 +75,7 @@ public class Test {
         System.out.println('\n');
     }
 
-    public static void test4(TaskManager manager, int epicId, int taskId, int subtaskId) {
+    public static void Test_DeleteTask(TaskManager manager, int epicId, int taskId, int subtaskId) {
         System.out.println("----------Deleting tasks with ids: ----------\n"
                 + "Epic Id: " + epicId + '\n'
                 + "Task Id: " + taskId + '\n'
@@ -75,5 +86,7 @@ public class Test {
 
         System.out.println("After deleting");
         manager.printAll();
+
+        printHistory(manager);
     }
 }
