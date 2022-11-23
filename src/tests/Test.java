@@ -13,7 +13,7 @@ public class Test {
         }
         System.out.println("");
     }
-    public static void Test_PrintingAl(TaskManager manager) {
+    public static void Test_PrintingAll(TaskManager manager) {
         System.out.println("----------PRINTING ALL TYPES OF TASKS----------");
         manager.printAll();
         System.out.println('\n');
@@ -87,6 +87,10 @@ public class Test {
         System.out.println("After deleting");
         manager.printAll();
 
+        printHistory(manager);
+
+        System.out.println("After deleting all Tasks");
+        manager.deleteAllTasks();
         printHistory(manager);
     }
 }
