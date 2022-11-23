@@ -1,7 +1,6 @@
 package manager;
 
 import task.Task;
-
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
@@ -85,14 +84,16 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void remove(int id) {
         final Node node = nodeMap.remove(id);
-        if (node.prev == null) {
-            removeFirst();
-        } else if (node.next == null) {
-            removeLast();
-        } else {
-            node.next.prev = node.prev;
-            node.prev.next = node.next;
-            size -= 1;
+        if (nodeMap.containsKey(id)) {
+            if (node.prev == null) {
+                removeFirst();
+            } else if (node.next == null) {
+                removeLast();
+            } else {
+                node.next.prev = node.prev;
+                node.prev.next = node.next;
+                size -= 1;
+            }
         }
     }
 
