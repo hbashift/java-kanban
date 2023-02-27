@@ -50,7 +50,7 @@ public interface TaskManager {
     void deleteEpic(int id);
 
     // getter for the task browsing history
-    List<Task> getHistory();
+    List<Integer> getHistory();
 
     void printAll();
 }

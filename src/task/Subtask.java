@@ -5,16 +5,17 @@ import java.util.Objects;
 public class Subtask extends Task {
     private Integer epicId;
 
-    public Subtask(String name, String description, TaskStatus taskStatus, Epic epic) {
+    public Subtask(String name, String description, TaskStatus taskStatus, int epicId) {
         super(name, description, taskStatus);
-        this.epicId = epic.getId();
+        this.epicId = epicId;
+        type = TaskType.SUBTASK;
     }
     // getter and setter for epicId to whom subtask belongs
     public int getEpicId() {
         return epicId;
     }
 
-    public void setEpicid(int epicId) {
+    public void setEpicId(int epicId) {
         this.epicId = epicId;
     }
 

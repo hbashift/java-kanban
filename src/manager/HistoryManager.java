@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface HistoryManager {
     void add(Task task);
-    List<Task> getHistory();
+    List<Integer> getHistory();
 
     void remove(int id);
 
     void removeAll();
+
+    void printAll();
 }

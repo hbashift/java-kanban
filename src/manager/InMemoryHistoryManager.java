@@ -27,14 +27,17 @@ public class InMemoryHistoryManager implements HistoryManager {
     private int size;
     private final Map<Integer, Node> nodeMap = new HashMap<>();
 
-    private List<Task> getTasks() {
-        List<Task> taskList = new ArrayList<>();
+    private List<Integer> getTasks() {
+        List<Integer> taskList = new ArrayList<>();
         Node newHead = head;
-        while (newHead.next != null) {
-            taskList.add(newHead.value);
-            newHead = newHead.next;
+        if (newHead != null){
+            while (newHead.next != null) {
+                taskList.add(newHead.value.getId());
+                newHead = newHead.next;
+            }
+            taskList.add(newHead.value.getId());
         }
-        taskList.add(newHead.value);
+
         return taskList;
     }
 
@@ -98,7 +101,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public List<Task> getHistory() {
+    public List<Integer> getHistory() {
         return getTasks();
     }
 
@@ -123,6 +126,13 @@ public class InMemoryHistoryManager implements HistoryManager {
         while (newNode.next != null) {
             head = null;
             newNode = newNode.next;
+        }
+    }
+
+    @Override
+    public void printAll() {
+        for (Map.Entry<Integer, Node> entry : nodeMap.entrySet()) {
+            System.out.println(entry.getValue().value);
         }
     }
 

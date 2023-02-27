@@ -7,12 +7,13 @@ import task.*;
 public class Test {
     public static void printHistory(TaskManager manager) {
         System.out.println("\nPrinting History of the browsing");
-        List<Task> taskList = manager.getHistory();
-        for (Task task : taskList) {
+        List<Integer> taskList = manager.getHistory();
+        for (Integer task : taskList) {
             System.out.println("\t\t" + task);
         }
         System.out.println("");
     }
+    
     public static void Test_PrintingAll(TaskManager manager) {
         System.out.println("----------PRINTING ALL TYPES OF TASKS----------");
         manager.printAll();

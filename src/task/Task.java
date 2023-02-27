@@ -7,6 +7,7 @@ public class Task {
     protected String description;
     protected Integer id;
     protected TaskStatus taskStatus;
+    protected TaskType type = TaskType.TASK;
 
     // default constructor and constructor with params
     public Task(){
@@ -49,6 +50,10 @@ public class Task {
 
     public void setStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     // hashCode, equals, toString override
