@@ -1,6 +1,9 @@
 package tests;
 
 import java.util.List;
+import java.util.Objects;
+
+import manager.FileBackedManager;
 import manager.TaskManager;
 import task.*;
 
@@ -93,5 +96,19 @@ public class Test {
         System.out.println("After deleting all Tasks");
         manager.deleteAllTasks();
         printHistory(manager);
+    }
+
+    public static void Test_FileBackedManager(List<Task> tasks1, List<Task> tasks2,
+                                              List<Subtask> subtasks1, List<Subtask> subtasks2,
+                                              List<Epic> epics1, List<Epic> epics2) {
+        boolean taskCheck = Objects.equals(tasks1, tasks2);
+        boolean subtaskCheck = Objects.equals(subtasks1, subtasks2);
+        boolean epicCheck = Objects.equals(epics1, epics2);
+
+        if (taskCheck & subtaskCheck & epicCheck) {
+            System.out.println("FileBackedManager works correctly");
+        } else {
+            System.out.println("FileBackedManager doesn't work correctly");
+        }
     }
 }
