@@ -44,7 +44,7 @@ public class FileBackedManager extends InMemoryTasksManager {
 
         String[] history = tasks[tasks.length - 1].split(",");
         if (history.length > 0) {
-            manager.setHistory(CSVFormatter.historyFromString(history, manager));
+            manager.setHistory(CSVFormatter.historyFromString(history));
         }
 
         return manager;

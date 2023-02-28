@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVFormatter {
-
+    // toString() functions
+    // converts Task objects to string
     public static String toString(Task task) {
         return task.getId() + ","
                 + task.getType() + ","
@@ -35,6 +36,8 @@ public class CSVFormatter {
                 + epic.getDescription() + ",";
     }
 
+    // Multiple conversion
+    // params: lists of Task, Subtask, Epic, history (ids) and BufferedWriter to write in a file
     public static void allToString(List<Task> tasks,
                                    List<Subtask> subtasks,
                                    List<Epic> epics,
@@ -63,7 +66,8 @@ public class CSVFormatter {
         writer.write(builder.toString());
     }
 
-    public static List<Integer> historyFromString(String[] insides, FileBackedManager manager) {
+    // converts history from a string to a List<Integer>, where elements of the list - id's of viewed tasks
+    public static List<Integer> historyFromString(String[] insides) {
         List<Integer> history = new ArrayList<>();
 
         for (String id : insides) {
