@@ -10,15 +10,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-public class FileBackedManager extends InMemoryTasksManager {
+public class FileBackedTasksManager extends InMemoryTasksManager {
     private final File file;
 
-    public FileBackedManager(File file) {
+    public FileBackedTasksManager(File file) {
         this.file = file;
     }
 
     // loads saved task/Task, task/Subtask/ task/Epic from a csv file
-    public static FileBackedManager loadFromFile(File file) {
+    public static FileBackedTasksManager loadFromFile(File file) {
         String lines;
 
         try {
@@ -28,7 +28,7 @@ public class FileBackedManager extends InMemoryTasksManager {
             return null;
         }
 
-        FileBackedManager manager = new FileBackedManager(file);
+        FileBackedTasksManager manager = new FileBackedTasksManager(file);
 
         if (lines.length() == 0) {
             System.out.println("File is empty");
@@ -81,9 +81,9 @@ public class FileBackedManager extends InMemoryTasksManager {
     // save function. saves the current condition of tasks in a file
     private void save() throws ManagerSaveException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            List<Task> tasks = super.getAllTasks();
-            List<Subtask> subtasks = super.getAllSubtasks();
-            List<Epic> epics = super.getAllEpics();
+            List<Task> tasks = super.getTasks();
+            List<Subtask> subtasks = super.getSubtasks();
+            List<Epic> epics = super.getEpics();
             List<Integer> history = super.getHistory();
             CSVFormatter.allToString(tasks, subtasks, epics, history, writer);
 
@@ -97,7 +97,7 @@ public class FileBackedManager extends InMemoryTasksManager {
         }
     }
 
-    // try catch wrapper over function FileBackedManager.save();
+    // try catch wrapper over function FileBackedTasksManager.save();
     private void saver() {
         try {
             save();
@@ -108,6 +108,7 @@ public class FileBackedManager extends InMemoryTasksManager {
 
     // Override functions from InMemoryTasksManager
     // calling super.{functionName}, and then saves condition in a file
+    // for add, update, get, delete functions
     @Override
     public int addNewTask(Task task) {
         int id = super.addNewTask(task);

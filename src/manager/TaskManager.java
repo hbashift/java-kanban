@@ -13,11 +13,11 @@ public interface TaskManager {
     int addNewEpic(Epic epic);
 
     // getters for task.Task/task.Subtask/task.Epic HashMaps
-    List<Task> getAllTasks();
+    List<Task> getTasks();
 
-    List<Subtask> getAllSubtasks();
+    List<Subtask> getSubtasks();
 
-    List<Epic> getAllEpics();
+    List<Epic> getEpics();
 
     // getter for subtaskIds ArrayList from concrete task.Epic
     List<Subtask> getEpicSubtasks(Epic epic);

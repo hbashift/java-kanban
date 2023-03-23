@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CSVFormatter {
     // toString() functions
-    // converts Task objects to string
+    // serializing task.Task/Subtask/Epic objects into CSV format
     public static String toString(Task task) {
         return task.getId() + ","
                 + task.getType() + ","

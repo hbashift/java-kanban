@@ -72,17 +72,17 @@ class InMemoryTasksManager implements TaskManager {
 
     // getters for task.Task/task.Subtask/task.Epic HashMaps
     @Override
-    public List<Task> getAllTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public List<Subtask> getAllSubtasks() {
+    public List<Subtask> getSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
     @Override
-    public List<Epic> getAllEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
@@ -247,7 +247,7 @@ class InMemoryTasksManager implements TaskManager {
 
     @Override
     public void deleteEpic(int id) {
-        ArrayList<Integer> subtasksIdList = epics.get(id).getSubtasks();
+        List<Integer> subtasksIdList = epics.get(id).getSubtasks();
 
         for (int subtaskId : subtasksIdList) {
             subtasks.remove(subtaskId);

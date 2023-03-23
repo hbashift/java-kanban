@@ -1,8 +1,8 @@
-import manager.FileBackedManager;
+import manager.FileBackedTasksManager;
 import manager.Managers;
 import manager.TaskManager;
 import task.*;
-import tests.Test;
+import custom.tests.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,18 +40,18 @@ public class Main {
         managerWriter.getEpic(epic2Id);
         managerWriter.getSubtask(subtask3Id);
 
-        System.out.println("\t\tTest FileBackedManager");
+        System.out.println("\t\tTest FileBackedTasksManager");
 
-        FileBackedManager managerReader = FileBackedManager.loadFromFile(path.toFile());
+        FileBackedTasksManager managerReader = FileBackedTasksManager.loadFromFile(path.toFile());
 
-        List<Task> tasksFromWriter = managerWriter.getAllTasks();
-        List<Epic> epicsFromWriter = managerWriter.getAllEpics();
-        List<Subtask> subtasksFromWriter = managerWriter.getAllSubtasks();
+        List<Task> tasksFromWriter = managerWriter.getTasks();
+        List<Epic> epicsFromWriter = managerWriter.getEpics();
+        List<Subtask> subtasksFromWriter = managerWriter.getSubtasks();
 
         assert managerReader != null;
-        List<Task> tasksFromReader = managerReader.getAllTasks();
-        List<Epic> epicsFromReader = managerReader.getAllEpics();
-        List<Subtask> subtasksFromReader = managerReader.getAllSubtasks();
+        List<Task> tasksFromReader = managerReader.getTasks();
+        List<Epic> epicsFromReader = managerReader.getEpics();
+        List<Subtask> subtasksFromReader = managerReader.getSubtasks();
 
         Test.Test_FileBackedManager(tasksFromWriter, tasksFromReader,
                 subtasksFromWriter, subtasksFromReader,
