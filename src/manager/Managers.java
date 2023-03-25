@@ -1,5 +1,10 @@
 package manager;
 
+import manager.history.HistoryManager;
+import manager.history.InMemoryHistoryManager;
+import manager.file.FileBackedTasksManager;
+import manager.memory.InMemoryTasksManager;
+
 import java.io.File;
 
 public class Managers {

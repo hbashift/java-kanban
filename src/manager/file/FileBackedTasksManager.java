@@ -1,6 +1,7 @@
-package manager;
+package manager.file;
 
 import exceptions.ManagerSaveException;
+import manager.memory.InMemoryTasksManager;
 import task.*;
 
 import java.io.BufferedWriter;
@@ -8,7 +9,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class FileBackedTasksManager extends InMemoryTasksManager {
     private final File file;
@@ -25,14 +28,14 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             lines = Files.readString(file.toPath());
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return null;
+            return new FileBackedTasksManager(file);
         }
 
         FileBackedTasksManager manager = new FileBackedTasksManager(file);
 
         if (lines.length() == 0) {
             System.out.println("File is empty");
-            return null;
+            return new FileBackedTasksManager(file);
         }
 
         String[] tasks = lines.split("\n");
@@ -87,10 +90,14 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             List<Integer> history = super.getHistory();
             CSVFormatter.allToString(tasks, subtasks, epics, history, writer);
 
-            tasks.clear();
-            subtasks.clear();
-            epics.clear();
-            history.clear();
+            if (Objects.nonNull(tasks))
+                tasks.clear();
+            if (Objects.nonNull(subtasks))
+                subtasks.clear();
+            if (Objects.nonNull(epics))
+                epics.clear();
+            if (Objects.nonNull(history))
+                history.clear();
 
         } catch (IOException e) {
             throw new ManagerSaveException(e);
@@ -112,7 +119,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public int addNewTask(Task task) {
         int id = super.addNewTask(task);
-
         saver();
 
         return id;
@@ -121,7 +127,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public int addNewSubtask(Subtask subtask) {
         int id = super.addNewSubtask(subtask);
-
         saver();
 
         return id;
@@ -130,7 +135,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public int addNewEpic(Epic epic) {
         int id = super.addNewEpic(epic);
-
         saver();
 
         return id;
@@ -139,7 +143,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public Task getTask(int id) {
         Task task = super.getTask(id);
-
         saver();
 
         return task;
@@ -148,7 +151,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public Subtask getSubtask(int id) {
         Subtask subtask = super.getSubtask(id);
-
         saver();
 
         return subtask;
@@ -157,31 +159,33 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     @Override
     public Epic getEpic(int id) {
         Epic epic = super.getEpic(id);
-
         saver();
 
         return epic;
     }
 
     @Override
-    public void updateTask(Task task) {
-        super.updateTask(task);
-
+    public boolean updateTask(Task task) {
+        boolean check = super.updateTask(task);
         saver();
+
+        return check;
     }
 
     @Override
-    public void updateSubtask(Subtask subtask) {
-        super.updateSubtask(subtask);
-
+    public boolean updateSubtask(Subtask subtask) {
+        boolean check = super.updateSubtask(subtask);
         saver();
+
+        return check;
     }
 
     @Override
-    public void updateEpic(Epic epic) {
-        super.updateEpic(epic);
-
+    public boolean updateEpic(Epic epic) {
+        boolean check = super.updateEpic(epic);
         saver();
+
+        return check;
     }
 
     @Override
@@ -206,23 +210,26 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     }
 
     @Override
-    public void deleteTask(int id) {
-        super.deleteTask(id);
-
+    public Task deleteTask(int id) {
+        Task task = super.deleteTask(id);
         saver();
+
+        return task;
     }
 
     @Override
-    public void deleteSubtask(int id) {
-        super.deleteSubtask(id);
-
+    public Subtask deleteSubtask(int id) {
+        Subtask subtask = super.deleteSubtask(id);
         saver();
+
+        return subtask;
     }
 
     @Override
-    public void deleteEpic(int id) {
-        super.deleteEpic(id);
-
+    public Epic deleteEpic(int id) {
+        Epic epic = super.deleteEpic(id);
         saver();
+
+        return epic;
     }
 }

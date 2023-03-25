@@ -6,10 +6,16 @@ import java.util.List;
 
 public interface TaskManager {
     // Adding new task.Task/task.Subtask/task.Epic to a manager
+    // Should return taskId
     int addNewTask(Task task);
 
+    /* Should return subtaskId, or -1
+     * if there is no such Epic with epicId
+     * that was used while creating subtask
+     * */
     int addNewSubtask(Subtask subtask);
 
+    // Should return epicId
     int addNewEpic(Epic epic);
 
     // getters for task.Task/task.Subtask/task.Epic HashMaps
@@ -30,11 +36,12 @@ public interface TaskManager {
     Epic getEpic(int id);
 
     // update methods for task.Task/task.Subtask/task.Epic
-    void updateTask(Task task);
+    // return true, if update is successful, else false
+    boolean updateTask(Task task) ;
 
-    void updateSubtask(Subtask subtask);
+    boolean updateSubtask(Subtask subtask);
 
-    void updateEpic(Epic epic);
+    boolean updateEpic(Epic epic);
 
     // delete methods for task.Task/task.Subtask/task.Epic
     void deleteAllTasks();
@@ -43,14 +50,17 @@ public interface TaskManager {
 
     void deleteAllEpics();
 
-    void deleteTask(int id);
+    // return task.Task/Subtask/Epic that was deleted
+    Task deleteTask(int id);
 
-    void deleteSubtask(int id);
+    Subtask deleteSubtask(int id);
 
-    void deleteEpic(int id);
+    Epic deleteEpic(int id);
 
     // getter for the task browsing history
     List<Integer> getHistory();
+
+    void setHistory(List<Integer> history);
 
     void printAll();
 }
