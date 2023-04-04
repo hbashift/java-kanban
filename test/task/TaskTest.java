@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class TaskTest {
     private Task task;
 
@@ -25,7 +28,7 @@ public class TaskTest {
 
     @Test
     public void getters() {
-        task = new Task("name", "desc", TaskStatus.NEW);
+        task = new Task("name", "desc", TaskStatus.NEW, LocalDateTime.now(), Duration.ofMinutes(10));
         task.setId(1);
 
         assertEquals(1, task.getId());

@@ -3,6 +3,7 @@ package manager;
 import task.*;
 
 import java.util.List;
+import java.util.TreeSet;
 
 public interface TaskManager {
     // Adding new task.Task/task.Subtask/task.Epic to a manager
@@ -34,6 +35,8 @@ public interface TaskManager {
     Subtask getSubtask(int id);
 
     Epic getEpic(int id);
+
+    TreeSet<Task> getPrioritizedTasks();
 
     // update methods for task.Task/task.Subtask/task.Epic
     // return true, if update is successful, else false

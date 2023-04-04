@@ -1,5 +1,7 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
@@ -8,8 +10,16 @@ public class Subtask extends Task {
     public Subtask(String name, String description, TaskStatus taskStatus, int epicId) {
         super(name, description, taskStatus);
         this.epicId = epicId;
-        type = TaskType.SUBTASK;
+        this.type = TaskType.SUBTASK;
     }
+
+    public Subtask(String name, String description, TaskStatus taskStatus
+            , int epicId, LocalDateTime startTime, Duration duration) {
+        super(name, description, taskStatus, startTime, duration);
+        this.epicId = epicId;
+        this.type = TaskType.SUBTASK;
+    }
+
     // getter and setter for epicId to whom subtask belongs
     public int getEpicId() {
         return epicId;
@@ -68,6 +78,7 @@ public class Subtask extends Task {
                 + ", description: " + description
                 + ", id: " + id
                 + ", taskStatus: " + taskStatus
-                + ", epicId: " + epicId + "}";
+                + ", epicId: " + epicId
+                + ", startTime: " + startTime.format(formatter) + "}";
     }
 }

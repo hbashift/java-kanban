@@ -1,5 +1,8 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
@@ -8,8 +11,10 @@ public class Task {
     protected Integer id;
     protected TaskStatus taskStatus;
     protected TaskType type = TaskType.TASK;
-
-    // default constructor and constructor with params
+    protected LocalDateTime startTime;
+    protected Duration duration;
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy | HH:mm:ss");
+    // default constructor and constructors with params
     public Task(){
     }
 
@@ -17,6 +22,14 @@ public class Task {
         this.name = name;
         this.description = description;
         this.taskStatus = taskStatus;
+    }
+
+    public Task(String name, String description, TaskStatus taskStatus, LocalDateTime startTime, Duration duration) {
+        this.name = name;
+        this.description = description;
+        this.taskStatus = taskStatus;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     // getters and setters for class attributes
@@ -54,6 +67,26 @@ public class Task {
 
     public TaskType getType() {
         return type;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     // hashCode, equals, toString override
@@ -95,10 +128,20 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{"
-                + "name: " + name
-                + ", description: " + description
-                + ", id: " + id
-                + ", taskStatus: " + taskStatus + "}";
+        if (startTime == null) {
+            return "Task{"
+                    + "name: " + name
+                    + ", description: " + description
+                    + ", id: " + id
+                    + ", taskStatus: " + taskStatus
+                    + ", startTime: null}";
+        } else {
+            return "Task{"
+                    + "name: " + name
+                    + ", description: " + description
+                    + ", id: " + id
+                    + ", taskStatus: " + taskStatus
+                    + ", startTime: " + startTime.format(formatter) + "}";
+        }
     }
 }
