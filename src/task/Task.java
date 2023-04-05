@@ -13,7 +13,7 @@ public class Task {
     protected TaskType type = TaskType.TASK;
     protected LocalDateTime startTime;
     protected Duration duration;
-    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy | HH:mm:ss");
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy | HH:mm:ss");
     // default constructor and constructors with params
     public Task(){
     }
@@ -87,6 +87,14 @@ public class Task {
 
     public LocalDateTime getEndTime() {
         return startTime.plus(duration);
+    }
+
+    public static DateTimeFormatter formatter() {
+        return formatter;
+    }
+
+    public static void setFormatter(DateTimeFormatter formatter) {
+        Task.formatter = formatter;
     }
 
     // hashCode, equals, toString override

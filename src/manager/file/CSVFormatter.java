@@ -13,21 +13,47 @@ public class CSVFormatter {
     // toString() functions
     // serializing task.Task/Subtask/Epic objects into CSV format
     public static String toString(Task task) {
-        return task.getId() + ","
-                + task.getType() + ","
-                + task.getName() + ","
-                + task.getStatus() + ","
-                + task.getDescription() + ",";
+        String str;
 
+        if (task.getStartTime() == null)
+            str = task.getId() + ","
+                    + task.getType() + ","
+                    + task.getName() + ","
+                    + task.getStatus() + ","
+                    + task.getDescription();
+        else
+            str = task.getId() + ","
+                    + task.getType() + ","
+                    + task.getName() + ","
+                    + task.getStatus() + ","
+                    + task.getDescription() + ","
+                    + task.getStartTime().format(Task.formatter()) + ","
+                    + task.getDuration().toString();
+
+        return str;
     }
 
     public static String toString(Subtask subtask) {
-        return subtask.getId() + ","
-                + subtask.getType() + ","
-                + subtask.getName() + ","
-                + subtask.getStatus() + ","
-                + subtask.getDescription() + ","
-                + subtask.getEpicId();
+        String str;
+
+        if (subtask.getStartTime() == null)
+            str = subtask.getId() + ","
+                    + subtask.getType() + ","
+                    + subtask.getName() + ","
+                    + subtask.getStatus() + ","
+                    + subtask.getDescription() + ","
+                    + subtask.getEpicId();
+        else
+            str = subtask.getId() + ","
+                    + subtask.getType() + ","
+                    + subtask.getName() + ","
+                    + subtask.getStatus() + ","
+                    + subtask.getDescription() + ","
+                    + subtask.getEpicId() + ","
+                    + subtask.getStartTime().format(Task.formatter()) + ","
+                    + subtask.getDuration().toString();
+
+        return str;
     }
 
     public static String toString(Epic epic) {
@@ -35,7 +61,7 @@ public class CSVFormatter {
                 + epic.getType() + ","
                 + epic.getName() + ","
                 + epic.getStatus() + ","
-                + epic.getDescription() + ",";
+                + epic.getDescription();
     }
 
     // Multiple conversion
@@ -81,13 +107,11 @@ public class CSVFormatter {
     public static List<Integer> historyFromString(String[] insides) {
         List<Integer> history = new ArrayList<>();
 
-        if (Arrays.stream(insides).anyMatch(e -> Integer.parseInt(e) == -1)) {
+        if (Arrays.stream(insides).anyMatch(e -> Integer.parseInt(e) == -1))
             return history;
-        }
 
-        for (String id : insides) {
+        for (String id : insides)
             history.add(Integer.parseInt(id));
-        }
 
         return history;
     }

@@ -7,6 +7,8 @@ import task.Subtask;
 import task.Task;
 import task.TaskStatus;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +25,12 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     protected List<Subtask> createSubtasks(TaskStatus status1, TaskStatus status2, TaskStatus status3, int epicId) {
 
-        Subtask subtask1 = new Subtask("subtask1Name", "subtask1Description", status1, epicId);
-        Subtask subtask2 = new Subtask("subtask2Name", "subtask2Description", status2, epicId);
-        Subtask subtask3 = new Subtask("subtask3Name", "subtask3Description", status3, epicId);
+        Subtask subtask1 = new Subtask("subtask1Name", "subtask1Description", status1, epicId,
+                LocalDateTime.now(), Duration.ofMinutes(100));
+        Subtask subtask2 = new Subtask("subtask2Name", "subtask2Description", status2, epicId,
+                LocalDateTime.now().plusHours(10), Duration.ofMinutes(10));
+        Subtask subtask3 = new Subtask("subtask3Name", "subtask3Description", status3, epicId,
+                LocalDateTime.now().minusHours(10), Duration.ofMinutes(10));
 
         List<Subtask> subtasks = new ArrayList<>();
 

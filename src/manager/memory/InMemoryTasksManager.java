@@ -61,7 +61,8 @@ public class InMemoryTasksManager implements TaskManager {
         epic.addSubtaskId(subtask);
         changeEpicStatus(subtask);
 
-        setEpicsTime(epic, subtask);
+        if (subtask.getStartTime() != null)
+            setEpicsTime(epic, subtask);
 
         return generatorId;
     }
@@ -90,7 +91,8 @@ public class InMemoryTasksManager implements TaskManager {
         epic.addSubtaskId(subtask);
         changeEpicStatus(subtask);
 
-        setEpicsTime(epic, subtask);
+        if (subtask.getStartTime() != null)
+            setEpicsTime(epic, subtask);
     }
 
     protected void addNewEpic(Epic epic, int id) {

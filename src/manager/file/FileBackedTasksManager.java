@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,9 +59,18 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     private void fromString(String[] insides) {
         switch (TaskType.valueOf(insides[1])) {
             case TASK:
-                Task task = new Task(insides[2]
-                        , insides[4]
-                        ,TaskStatus.valueOf(insides[3]));
+                Task task;
+                if (insides.length == 7)
+                    task = new Task(insides[2],
+                            insides[4],
+                            TaskStatus.valueOf(insides[3]),
+                            LocalDateTime.parse(insides[5], Task.formatter()),
+                            Duration.parse(insides[6]));
+                else
+                    task = new Task(insides[2],
+                            insides[4],
+                            TaskStatus.valueOf(insides[3]));
+
                 super.addNewTask(task, Integer.parseInt(insides[0]));
                 break;
 
@@ -71,10 +82,20 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
                 break;
 
             case SUBTASK:
-                Subtask subtask = new Subtask(insides[2]
-                        , insides[4]
-                        , TaskStatus.valueOf(insides[3])
-                        , Integer.parseInt(insides[5]));
+                Subtask subtask;
+                if (insides.length == 7)
+                    subtask = new Subtask(insides[2],
+                            insides[4],
+                            TaskStatus.valueOf(insides[3]),
+                            Integer.parseInt(insides[5]),
+                            LocalDateTime.parse(insides[6], Task.formatter()),
+                            Duration.parse(insides[7]));
+                else
+                    subtask = new Subtask(insides[2],
+                            insides[4],
+                            TaskStatus.valueOf(insides[3]),
+                            Integer.parseInt(insides[5]));
+
                 super.addNewSubtask(subtask, Integer.parseInt(insides[0]));
                 break;
         }
