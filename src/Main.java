@@ -13,7 +13,7 @@ import java.util.TreeSet;
 
 public class Main {
     public static void main(String[] args) {
-        Path path = Paths.get("resources/tasks.csv");
+/*        Path path = Paths.get("resources/tasks.csv");
 
         TaskManager managerWriter = Managers.getDefault(path.toFile());
 
@@ -44,6 +44,12 @@ public class Main {
 
         taskSet.forEach(System.out::println);
         System.out.println(epic1.getStartTime());
-        System.out.println(epic1.getEndTime());
+        System.out.println(epic1.getEndTime());*/
+
+        String str = "null";
+
+        LocalDateTime var = LocalDateTime.parse(str);
+
+        System.out.println(var);
     }
 }
