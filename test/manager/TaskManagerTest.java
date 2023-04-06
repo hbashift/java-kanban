@@ -294,4 +294,29 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
         assertEquals(history, taskManager.getHistory());
     }
+
+    @Test
+    public void timeIntervalCheck() {
+        LocalDateTime dateTime = LocalDateTime.of(2022, 12, 20, 20, 10, 10);
+        Task task1 = new Task("task 1", "taskDescription", NEW, dateTime, Duration.ofMinutes(40));
+        Task task2 = new Task("task 2", "taskDescription",
+                NEW, dateTime.plusMinutes(30), Duration.ofMinutes(10));
+        Task task3 = new Task("task 3", "taskDescription",
+                NEW, dateTime.minusMinutes(10), Duration.ofMinutes(10));
+        Task task4 = new Task("task 4", "taskDescription",
+                NEW, dateTime.minusMinutes(60), Duration.ofMinutes(60));
+        Task task5 = new Task("task 5", "taskDescription", NEW);
+        Task task6 = new Task("task 6", "taskDescription", NEW);
+
+        taskManager.addNewTask(task1);
+        taskManager.addNewTask(task2);
+        taskManager.addNewTask(task3);
+        taskManager.addNewTask(task4);
+        taskManager.addNewTask(task5);
+        taskManager.addNewTask(task6);
+
+        List<Task> check = List.of(task1, task3, task5, task6);
+
+        assertEquals(check, taskManager.getTasks());
+    }
 }

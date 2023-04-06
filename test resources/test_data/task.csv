@@ -1,8 +1,8 @@
-id,type,name,status,description,epic,startTime,duration
+id,type,name,status,description,epic
 2,TASK,taskName,NEW,taskDescription
 1,EPIC,epicName,DONE,epicDescription
-3,SUBTASK,subtask1Name,DONE,subtask1Description,1,05.04.2023 | 15:43:14,PT1H40M
-4,SUBTASK,subtask2Name,DONE,subtask2Description,1,06.04.2023 | 01:43:14,PT10M
-5,SUBTASK,subtask3Name,DONE,subtask3Description,1,05.04.2023 | 05:43:14,PT10M
+3,SUBTASK,subtask1Name,DONE,subtask1Description,1,06.04.2023 | 22:31:04:01,PT1H40M
+4,SUBTASK,subtask2Name,DONE,subtask2Description,1,07.04.2023 | 08:31:04:01,PT10M
+5,SUBTASK,subtask3Name,DONE,subtask3Description,1,06.04.2023 | 12:31:04:01,PT10M
 
 2,1,

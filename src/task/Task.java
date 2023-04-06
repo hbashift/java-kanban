@@ -1,6 +1,7 @@
 package task;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -13,7 +14,7 @@ public class Task {
     protected TaskType type = TaskType.TASK;
     protected LocalDateTime startTime;
     protected Duration duration;
-    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy | HH:mm:ss");
+    protected static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy | HH:mm:ss:SS");
     // default constructor and constructors with params
     public Task(){
     }
@@ -95,6 +96,10 @@ public class Task {
 
     public static void setFormatter(DateTimeFormatter formatter) {
         Task.formatter = formatter;
+    }
+
+    public static boolean isWithinRange(Task task1, Task task2) {
+        return task1.getEndTime().isAfter(task2.startTime) && task1.startTime.isBefore(task2.getEndTime());
     }
 
     // hashCode, equals, toString override

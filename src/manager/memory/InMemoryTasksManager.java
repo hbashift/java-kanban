@@ -8,6 +8,7 @@ import task.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryTasksManager implements TaskManager {
     protected final Map<Integer, Task> tasks = new HashMap<>();
@@ -40,9 +41,25 @@ public class InMemoryTasksManager implements TaskManager {
         generatorId = 0;
     }
 
+    private boolean isInInterval(Task task) {
+        TreeSet<Task> check = getPrioritizedTasks();
+
+        for (Task obj : check.stream()
+                .filter(o1 -> o1.getStartTime() != null)
+                .collect(Collectors.toSet())) {
+            if (Task.isWithinRange(obj, task))
+                return true;
+        }
+
+        return false;
+    }
+
     // Adding new task.Task/task.Subtask/task.Epic to a InMemoryTasksManager
     @Override
     public int addNewTask(Task task) {
+        if (task.getStartTime() != null && isInInterval(task))
+            return -1;
+
         task.setId(++generatorId);
         tasks.put(task.getId(), task);
 
@@ -52,6 +69,9 @@ public class InMemoryTasksManager implements TaskManager {
     @Override
     public int addNewSubtask(Subtask subtask) {
         if (!epics.containsKey(subtask.getEpicId()))
+            return -1;
+
+        if (subtask.getStartTime() != null && isInInterval(subtask))
             return -1;
 
         subtask.setId(++generatorId);
@@ -69,6 +89,9 @@ public class InMemoryTasksManager implements TaskManager {
 
     @Override
     public int addNewEpic(Epic epic) {
+        if (epic.getStartTime() != null && isInInterval(epic))
+            return -1;
+
         epic.setId(++generatorId);
         epics.put(epic.getId(), epic);
 
@@ -77,11 +100,17 @@ public class InMemoryTasksManager implements TaskManager {
 
     // Adding new new task.Task/task.Subtask/task.Epic to a InMemoryTasksManager with id
     protected void addNewTask(Task task, int id) {
+        if (task.getStartTime() != null && isInInterval(task))
+            return;
+
         task.setId(id);
         tasks.put(id, task);
     }
     protected void addNewSubtask(Subtask subtask, int id) {
         if (!epics.containsKey(subtask.getEpicId()))
+            return;
+
+        if (subtask.getStartTime() != null && isInInterval(subtask))
             return;
 
         subtask.setId(id);
@@ -96,6 +125,9 @@ public class InMemoryTasksManager implements TaskManager {
     }
 
     protected void addNewEpic(Epic epic, int id) {
+        if (epic.getStartTime() != null && isInInterval(epic))
+            return;
+
         epic.setId(id);
         epics.put(id, epic);
     }
@@ -107,7 +139,6 @@ public class InMemoryTasksManager implements TaskManager {
             return new ArrayList<>(tasks.values());
         else
             return null;
-
     }
 
     @Override
@@ -266,7 +297,7 @@ public class InMemoryTasksManager implements TaskManager {
         Duration totalDuration;
         LocalDateTime endTime;
 
-        if (epic.getStartTime() == null || epic.getEndTime() == null || epic.getDuration() == null) {
+        if (epic.getStartTime() == null) {
             startTime = subtask.getStartTime();
             totalDuration = subtask.getDuration();
             endTime = subtask.getEndTime();
