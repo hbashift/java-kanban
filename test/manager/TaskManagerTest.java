@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static task.TaskStatus.*;
@@ -318,5 +319,50 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         List<Task> check = List.of(task1, task3, task5, task6);
 
         assertEquals(check, taskManager.getTasks());
+    }
+
+    @Test
+    public void shouldSortTasks() {
+        LocalDateTime dateTime = LocalDateTime.of(2022, 12, 20, 20, 10, 10);
+        Task task1 = new Task("task 1", "taskDescription", NEW,
+                dateTime, Duration.ofMinutes(40));
+        Task task2 = new Task("task 2", "taskDescription",
+                NEW, dateTime.plusMinutes(40), Duration.ofMinutes(10));
+        Task task3 = new Task("task 3", "taskDescription",
+                NEW, dateTime.minusMinutes(10), Duration.ofMinutes(10));
+        Task task4 = new Task("task 4", "taskDescription",
+                NEW, dateTime.minusMinutes(60), Duration.ofMinutes(10));
+        Task task5 = new Task("task 5", "taskDescription", NEW);
+        Task task6 = new Task("task 6", "taskDescription", NEW);
+
+        List<Integer> check = List.of(taskManager.addNewTask(task4),
+                taskManager.addNewTask(task3),
+                taskManager.addNewTask(task1),
+                taskManager.addNewTask(task2),
+                taskManager.addNewTask(task5),
+                taskManager.addNewTask(task6));
+
+        List<Integer> actual = taskManager
+                .getPrioritizedTasks()
+                .stream()
+                .map(Task::getId)
+                .collect(Collectors.toList());
+
+        assertEquals(check, actual);
+    }
+
+    @Test
+    public void shouldSetEpicsTimeAndDuration() {
+        LocalDateTime dateTime = LocalDateTime.of(2022, 12, 20, 20, 10, 10);
+
+        int id = taskManager.addNewEpic(epic);
+        subtask = new Subtask("subtask", "subtaskDescription",
+                NEW, id, dateTime, Duration.ofMinutes(10));
+
+        taskManager.addNewSubtask(subtask);
+
+        assertEquals(dateTime, epic.getStartTime());
+        assertEquals(Duration.ofMinutes(10), epic.getDuration());
+        assertEquals(dateTime.plusMinutes(10), epic.getEndTime());
     }
 }

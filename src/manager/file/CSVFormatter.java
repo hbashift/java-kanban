@@ -57,11 +57,25 @@ public class CSVFormatter {
     }
 
     public static String toString(Epic epic) {
-        return epic.getId() + ","
-                + epic.getType() + ","
-                + epic.getName() + ","
-                + epic.getStatus() + ","
-                + epic.getDescription();
+        String str;
+
+        if (epic.getStartTime() == null)
+            str = epic.getId() + ","
+                    + epic.getType() + ","
+                    + epic.getName() + ","
+                    + epic.getStatus() + ","
+                    + epic.getDescription();
+        else
+            str = epic.getId() + ","
+                    + epic.getType() + ","
+                    + epic.getName() + ","
+                    + epic.getStatus() + ","
+                    + epic.getDescription() + ","
+                    + epic.getStartTime().format(Task.formatter()) + ","
+                    + epic.getDuration().toString() + ","
+                    + epic.getEndTime().format(Task.formatter());
+
+        return str;
     }
 
     // Multiple conversion
