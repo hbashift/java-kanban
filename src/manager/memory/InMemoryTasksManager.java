@@ -62,6 +62,7 @@ public class InMemoryTasksManager implements TaskManager {
 
         task.setId(++generatorId);
         tasks.put(task.getId(), task);
+        sortedTasks.add(task);
 
         return generatorId;
     }
@@ -76,6 +77,8 @@ public class InMemoryTasksManager implements TaskManager {
 
         subtask.setId(++generatorId);
         subtasks.put(subtask.getId(), subtask);
+
+        sortedTasks.add(subtask);
 
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubtaskId(subtask);
@@ -105,6 +108,8 @@ public class InMemoryTasksManager implements TaskManager {
 
         task.setId(id);
         tasks.put(id, task);
+
+        sortedTasks.add(task);
     }
     protected void addNewSubtask(Subtask subtask, int id) {
         if (!epics.containsKey(subtask.getEpicId()))
@@ -115,6 +120,8 @@ public class InMemoryTasksManager implements TaskManager {
 
         subtask.setId(id);
         subtasks.put(id, subtask);
+
+        sortedTasks.add(subtask);
 
         Epic epic = epics.get(subtask.getEpicId());
         epic.addSubtaskId(subtask);
@@ -204,11 +211,6 @@ public class InMemoryTasksManager implements TaskManager {
 
     @Override
     public TreeSet<Task> getPrioritizedTasks() {
-        sortedTasks.clear();
-
-        tasks.forEach((key, value) -> sortedTasks.add(value));
-        subtasks.forEach((key, value) -> sortedTasks.add(value));
-
         return sortedTasks;
     }
 
@@ -218,7 +220,12 @@ public class InMemoryTasksManager implements TaskManager {
         boolean check = false;
 
         if (tasks.containsKey(task.getId())) {
+            sortedTasks.remove(tasks.get(task.getId()));
+
             tasks.replace(task.getId(), task);
+
+            sortedTasks.add(task);
+
             check = true;
         }
 
@@ -230,8 +237,13 @@ public class InMemoryTasksManager implements TaskManager {
         boolean check = false;
 
         if (subtasks.containsKey(subtask.getId())) {
+            sortedTasks.remove(subtasks.get(subtask.getId()));
+
             subtasks.replace(subtask.getId(), subtask);
             changeEpicStatus(subtask);
+
+            sortedTasks.add(subtask);
+
             check = true;
         }
 
