@@ -72,7 +72,7 @@ public class Subtask extends Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Subtask{"
                 + "name: " + name
                 + ", description: " + description

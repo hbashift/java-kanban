@@ -83,7 +83,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
 
             case SUBTASK:
                 Subtask subtask;
-                if (insides.length == 7)
+                if (insides.length == 8)
                     subtask = new Subtask(insides[2],
                             insides[4],
                             TaskStatus.valueOf(insides[3]),

@@ -1,14 +1,16 @@
 package task;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static task.TaskStatus.*;
-
 import manager.TaskManager;
 import manager.memory.InMemoryTasksManager;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static task.TaskStatus.DONE;
+import static task.TaskStatus.NEW;
 
 class EpicTest {
 
@@ -17,7 +19,7 @@ class EpicTest {
 
     @BeforeEach
     public void beforeEach() {
-        epic =  new Epic("epicName", "epicDescription", NEW);
+        epic = new Epic("epicName", "epicDescription", NEW);
         taskManager = new InMemoryTasksManager();
     }
 
@@ -41,7 +43,8 @@ class EpicTest {
         Subtask subtask2 = new Subtask("subtask2Name", "subtask2Description", TaskStatus.DONE, epicId);
         Subtask subtask3 = new Subtask("subtask3Name", "subtask3Description", TaskStatus.DONE, epicId);
 
-        final int subtask1Id = taskManager.addNewSubtask(subtask1), subtask2Id = taskManager.addNewSubtask(subtask2), subtask3Id = taskManager.addNewSubtask(subtask3);
+        final int subtask1Id = taskManager.addNewSubtask(subtask1), subtask2Id = taskManager
+                .addNewSubtask(subtask2), subtask3Id = taskManager.addNewSubtask(subtask3);
 
         List<Integer> subtasksIds = List.of(subtask1Id, subtask2Id, subtask3Id);
 

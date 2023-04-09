@@ -1,6 +1,7 @@
 package manager.history;
 
 import task.Task;
+
 import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
@@ -30,7 +31,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     private List<Integer> getTasks() {
         List<Integer> taskList = new ArrayList<>();
         Node newHead = head;
-        if (newHead != null){
+        if (newHead != null) {
             while (newHead.next != null) {
                 taskList.add(newHead.value.getId());
                 newHead = newHead.next;

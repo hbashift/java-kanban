@@ -44,17 +44,17 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @BeforeEach
     public void beforeEach() {
-        epic =  new Epic("epicName", "epicDescription", NEW);
+        epic = new Epic("epicName", "epicDescription", NEW);
         task = new Task("taskName", "taskDescription", NEW);
     }
 
     /*
-    * Checking for the correctness of the epic status change.
-    * Epic should have status:
-    *       - if all subtasks are DONE -> DONE,
-    *       - if all subtasks are NEW -> NEW,
-    *       - else -> IN_PROGRESS.
-    */
+     * Checking for the correctness of the epic status change.
+     * Epic should have status:
+     *       - if all subtasks are DONE -> DONE,
+     *       - if all subtasks are NEW -> NEW,
+     *       - else -> IN_PROGRESS.
+     */
     @Test
     public void epicShouldHasTaskStatusNew() {
         final int epicId = taskManager.addNewEpic(epic);
@@ -68,7 +68,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         taskManager.addNewSubtask(subtasks.get(2));
 
         // Second case, when epic has subtasks with TaskStatus.NEW
-        assertEquals(NEW, epic.getStatus(), error  + "вместо NEW, когда все подзадачи имеет статус NEW");
+        assertEquals(NEW, epic.getStatus(), error + "вместо NEW, когда все подзадачи имеет статус NEW");
     }
 
     @Test
@@ -170,9 +170,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         Subtask subtask2 = subtasks.get(1);
         Subtask subtask3 = subtasks.get(2);
 
-        final int subtask1Id = taskManager.addNewSubtask(subtask1)
-                , subtask2Id = taskManager.addNewSubtask(subtask2)
-                , subtask3Id = taskManager.addNewSubtask(subtask3);
+        final int subtask1Id = taskManager.addNewSubtask(subtask1),
+                subtask2Id = taskManager.addNewSubtask(subtask2),
+                subtask3Id = taskManager.addNewSubtask(subtask3);
 
         List<Integer> subtasksIds = List.of(subtask1Id, subtask2Id, subtask3Id);
 
@@ -203,7 +203,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void addNewEpic() {
         int epicId = taskManager.addNewEpic(epic);
 
-        assertEquals(epic, taskManager.getEpic(epicId),"Manager does not contain added epic");
+        assertEquals(epic, taskManager.getEpic(epicId), "Manager does not contain added epic");
         assertTrue(taskManager.getEpics().contains(epic));
     }
 
@@ -273,7 +273,8 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void deleteTasks() {
         int taskId = taskManager.addNewTask(task);
         int epicId = taskManager.addNewEpic(epic);
-        int subtask1Id = taskManager.addNewSubtask(new Subtask("subtaskName", "subtaskDescription", NEW, epicId));
+        int subtask1Id = taskManager.addNewSubtask(new Subtask("subtaskName", "subtaskDescription",
+                NEW, epicId));
         taskManager.addNewSubtask(new Subtask("subtaskName", "subtaskDescription", NEW, epicId));
 
         // Should return the object that is being deleted
@@ -287,7 +288,8 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void setHistory() {
         int taskId = taskManager.addNewTask(task);
         int epicId = taskManager.addNewEpic(epic);
-        int subtaskId = taskManager.addNewSubtask(new Subtask("subtaskName", "subtaskDescription", NEW, epicId));
+        int subtaskId = taskManager.addNewSubtask(new Subtask("subtaskName", "subtaskDescription",
+                NEW, epicId));
 
         List<Integer> history = List.of(taskId, epicId, subtaskId);
 
@@ -324,8 +326,8 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     public void shouldSortTasks() {
         LocalDateTime dateTime = LocalDateTime.of(2022, 12, 20, 20, 10, 10);
-        Task task1 = new Task("task 1", "taskDescription", NEW,
-                dateTime, Duration.ofMinutes(40));
+        Task task1 = new Task("task 1", "taskDescription",
+                NEW, dateTime, Duration.ofMinutes(40));
         Task task2 = new Task("task 2", "taskDescription",
                 NEW, dateTime.plusMinutes(40), Duration.ofMinutes(10));
         Task task3 = new Task("task 3", "taskDescription",

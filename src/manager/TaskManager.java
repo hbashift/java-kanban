@@ -1,6 +1,8 @@
 package manager;
 
-import task.*;
+import task.Epic;
+import task.Subtask;
+import task.Task;
 
 import java.util.List;
 import java.util.TreeSet;
@@ -40,7 +42,7 @@ public interface TaskManager {
 
     // update methods for task.Task/task.Subtask/task.Epic
     // return true, if update is successful, else false
-    boolean updateTask(Task task) ;
+    boolean updateTask(Task task);
 
     boolean updateSubtask(Subtask subtask);
 

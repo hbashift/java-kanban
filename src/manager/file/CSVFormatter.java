@@ -1,6 +1,8 @@
 package manager.file;
 
-import task.*;
+import task.Epic;
+import task.Subtask;
+import task.Task;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -81,10 +83,10 @@ public class CSVFormatter {
     // Multiple conversion
     // params: lists of Task, Subtask, Epic, history (ids) and BufferedWriter to write in a file
     public static void allToString(List<Task> tasks,
-                                   List<Subtask> subtasks,
-                                   List<Epic> epics,
-                                   List<Integer> history,
-                                   BufferedWriter writer)
+            List<Subtask> subtasks,
+            List<Epic> epics,
+            List<Integer> history,
+            BufferedWriter writer)
             throws IOException {
         StringBuilder builder = new StringBuilder();
 
@@ -108,7 +110,7 @@ public class CSVFormatter {
 
         writer.write('\n');
 
-        if (!history.isEmpty())  {
+        if (!history.isEmpty()) {
             history.forEach(id -> builder.append(id).append(','));
         } else {
             builder.append(-1);
