@@ -1,10 +1,12 @@
 id,type,name,status,description,epic
-1,TASK,Таска1,NEW,Обычная таска,
-2,TASK,Таска2,IN_PROGRESS,Очень обычная таска,
-3,EPIC,Эпик1,IN_PROGRESS,Эпик,
-7,EPIC,Эпик2,NEW,Эпик2,
-4,SUBTASK,Сабтаска 1,NEW,Subtask1,3
-5,SUBTASK,Сабтаска 2,IN_PROGRESS,Subtask2,3
-6,SUBTASK,Сабтаска 3,IN_PROGRESS,Subtask3,3
+1,TASK,Task1,NEW,task1
+2,TASK,Task1,NEW,task1
+8,TASK,Task1,NEW,task1
+9,TASK,Task3,NEW,task3
+10,TASK,Task3,NEW,task3
+1,EPIC,epicName,DONE,epicDescription,09.04.2023 | 06:48:30:82,PT2H,10.04.2023 | 02:58:30:82
+3,SUBTASK,subtask1Name,DONE,subtask1Description,1,09.04.2023 | 16:48:30:82,PT1H40M
+4,SUBTASK,subtask2Name,DONE,subtask2Description,1,10.04.2023 | 02:48:30:82,PT10M
+5,SUBTASK,subtask3Name,DONE,subtask3Description,1,09.04.2023 | 06:48:30:82,PT10M
 
-1,7,6,
+2,1,

@@ -1,0 +1,8 @@
+id,type,name,status,description,epic
+2,TASK,taskName,NEW,taskDescription
+1,EPIC,epicName,DONE,epicDescription,15.04.2023 | 06:23:12:56,PT2H,16.04.2023 | 02:33:12:56
+3,SUBTASK,subtask1Name,DONE,subtask1Description,1,15.04.2023 | 16:23:12:56,PT1H40M
+4,SUBTASK,subtask2Name,DONE,subtask2Description,1,16.04.2023 | 02:23:12:56,PT10M
+5,SUBTASK,subtask3Name,DONE,subtask3Description,1,15.04.2023 | 06:23:12:56,PT10M
+
+2,1,

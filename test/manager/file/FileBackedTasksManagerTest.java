@@ -20,7 +20,7 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
 
     @BeforeAll
     public static void fileSetUp() {
-        path = Paths.get("test resources/task.csv");
+        path = Paths.get("test resources/tasks.csv");
     }
 
     @BeforeEach

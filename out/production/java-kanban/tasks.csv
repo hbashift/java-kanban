@@ -1,13 +1,3 @@
 id,type,name,status,description,epic
-1,TASK,Таска1,NEW,Обычная таска,06.04.2023 | 21:57:54:66,PT10M
-2,TASK,Таска2,IN_PROGRESS,Очень обычная таска,16.04.2023 | 21:57:54:76,PT10M
-3,TASK,Таска2,IN_PROGRESS,Очень обычная таска,16.04.2023 | 21:57:54:77,PT10M
-4,TASK,Таска3,IN_PROGRESS,Очень обычная таска
-5,TASK,Таска4,IN_PROGRESS,Очень обычная таска
-6,EPIC,Эпик1,IN_PROGRESS,Эпик
-10,EPIC,Эпик2,NEW,Эпик2
-7,SUBTASK,Сабтаска 1,NEW,Subtask1,6,07.04.2023 | 07:57:54:82,PT10M
-8,SUBTASK,Сабтаска 2,IN_PROGRESS,Subtask2,6,06.04.2023 | 16:57:54:86,PT10M
-9,SUBTASK,Сабтаска 3,IN_PROGRESS,Subtask3,6,06.04.2023 | 22:12:54:86,PT10M
 
 -1

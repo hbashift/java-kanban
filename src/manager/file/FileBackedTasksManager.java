@@ -51,6 +51,8 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             manager.setHistory(CSVFormatter.historyFromString(history));
         }
 
+        manager.generatorId = tasks.length - 2;
+
         return manager;
     }
 
