@@ -138,10 +138,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public void removeAll() {
         nodeMap.clear();
-        Node newNode = head;
-        while (newNode.next != null) {
-            head = null;
-            newNode = newNode.next;
+        if (head != null) {
+            Node newNode = head;
+            while (newNode.next != null) {
+                head = null;
+                newNode = newNode.next;
+            }
         }
     }
 

@@ -41,14 +41,15 @@ public interface TaskManager {
     TreeSet<Task> getPrioritizedTasks();
 
     // update methods for task.Task/task.Subtask/task.Epic
-    // return true, if update is successful, else false
-    boolean updateTask(Task task);
+    void updateTask(Task task);
 
-    boolean updateSubtask(Subtask subtask);
+    void updateSubtask(Subtask subtask);
 
-    boolean updateEpic(Epic epic);
+    void updateEpic(Epic epic);
 
     // delete methods for task.Task/task.Subtask/task.Epic
+    void deleteAll();
+
     void deleteAllTasks();
 
     void deleteAllSubtasks();

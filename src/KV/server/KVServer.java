@@ -1,14 +1,14 @@
-package server;
+package KV.server;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpServer;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class KVServer {
     public static final int PORT = 8078;
@@ -17,11 +17,17 @@ public class KVServer {
     private final Map<String, String> data = new HashMap<>();
 
     public KVServer() throws IOException {
-        apiToken = generateApiToken();
+        // apiToken = generateApiToken();
+        apiToken = "DEBUG";
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
         server.createContext("/register", this::register);
         server.createContext("/save", this::save);
         server.createContext("/load", this::load);
+    }
+
+    public static void main(String[] args) throws IOException {
+        KVServer server1 = new KVServer();
+        server1.start();
     }
 
     private void load(HttpExchange h) {
@@ -53,7 +59,7 @@ public class KVServer {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             h.close();
         }
     }

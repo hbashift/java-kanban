@@ -5,18 +5,19 @@ import com.google.gson.GsonBuilder;
 import manager.file.FileBackedTasksManager;
 import manager.history.HistoryManager;
 import manager.history.InMemoryHistoryManager;
+import manager.http.HttpTaskManager;
 import manager.memory.InMemoryTasksManager;
 
 import java.io.File;
-import java.time.LocalDateTime;
+import java.net.URI;
 
 public class Managers {
 
     private Managers() {
     }
 
-    public static TaskManager getDefault(File file) {
-        return new FileBackedTasksManager(file);
+    public static TaskManager getDefault() {
+        return new HttpTaskManager(URI.create("http://localhost:8078/"));
     }
 
     public static TaskManager getInMemoryTask() {

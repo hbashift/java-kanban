@@ -239,26 +239,18 @@ public class InMemoryTasksManager implements TaskManager {
 
     // update methods for task.Task/task.Subtask/task.Epic
     @Override
-    public boolean updateTask(Task task) {
-        boolean check = false;
-
+    public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
             sortedTasks.remove(tasks.get(task.getId()));
 
             tasks.replace(task.getId(), task);
 
             sortedTasks.add(task);
-
-            check = true;
         }
-
-        return check;
     }
 
     @Override
-    public boolean updateSubtask(Subtask subtask) {
-        boolean check = false;
-
+    public void updateSubtask(Subtask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
             sortedTasks.remove(subtasks.get(subtask.getId()));
 
@@ -266,23 +258,14 @@ public class InMemoryTasksManager implements TaskManager {
             changeEpicStatus(subtask);
 
             sortedTasks.add(subtask);
-
-            check = true;
         }
-
-        return check;
     }
 
     @Override
-    public boolean updateEpic(Epic epic) {
-        boolean check = false;
-
+    public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
             epics.replace(epic.getId(), epic);
-            check = true;
         }
-
-        return check;
     }
 
     // taskStatus checker for task.Epic
@@ -359,11 +342,11 @@ public class InMemoryTasksManager implements TaskManager {
     }
 
     // delete methods for task.Task/task.Subtask/task.Epic (all and by id)
-    private void deleteAll() {
+    public void deleteAll() {
+        historyManager.removeAll();
         tasks.clear();
         subtasks.clear();
         epics.clear();
-        historyManager.removeAll();
     }
 
     @Override

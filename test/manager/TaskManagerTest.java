@@ -232,30 +232,56 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     // Tests for update functions
     @Test
     public void shouldNotUpdateNoExistingTask() {
+        taskManager.deleteAll();
+        taskManager.addNewTask(new Task("1", "2", NEW));
+        int epicId = taskManager.addNewEpic(new Epic("1", "2", NEW));
+        taskManager.addNewSubtask(new Subtask("1", "2", NEW, epicId));
         // No-existing task.Task
-        assertFalse(taskManager.updateTask(new Task("taskName", "taskDescription", NEW))
-                , "Updates no-existing task");
+        taskManager.updateTask(new Task("very funny taskName", "taskDescription", NEW));
+        List<String> names = taskManager
+                .getTasks()
+                .stream()
+                .map(Task::getName)
+                .collect(Collectors.toList());
+        assertFalse(names.contains("very funny taskName"), "Updates no-existing task");
         // No-existing task.Subtask
-        assertFalse(taskManager.updateSubtask(new Subtask("name", "desc", NEW, 1))
-                , "Updates no-existing subtask");
+        taskManager.updateSubtask(new Subtask("very funny subtaskName", "desc", NEW, 1));
+        names = taskManager.getSubtasks()
+                .stream()
+                .map(Subtask::getName)
+                .collect(Collectors.toList());
+        assertFalse(names.contains("very funny subtaskName"), "Updates no-existing subtask");
         // No-existing task.Epic
-        assertFalse(taskManager.updateEpic(epic), "Updates no-existing epic");
+        taskManager.updateEpic(new Epic("very funny epicName", "desc", NEW));
+        names = taskManager.getEpics()
+                .stream()
+                .map(Epic::getName)
+                .collect(Collectors.toList());
+        assertFalse(names.contains("very funny epicName"), "Updates no-existing epic");
     }
 
     @Test
     public void updateTasks() {
-        int epicId = taskManager.addNewEpic(epic);
-        taskManager.addNewTask(task);
-        subtasks = createSubtasks(DONE, DONE, DONE, epicId);
+        taskManager.deleteAll();
 
-        for (Subtask task : new ArrayList<>(subtasks)) {
-            taskManager.addNewSubtask(task);
-        }
+        Epic updateEpic = new Epic("very funny epicName", "desc", NEW);
+        int epicId = taskManager.addNewEpic(updateEpic);
+        Subtask updateSubtask = new Subtask("very funny subtaskName", "desc", NEW, epicId);
+        taskManager.addNewSubtask(updateSubtask);
+        Task updateTask = new Task("very funny taskName", "taskDescription", NEW);
+        taskManager.addNewTask(updateTask);
 
-        // Should return true if update is successful
-        assertTrue(taskManager.updateTask(task), "Does not update existing task");
-        assertTrue(taskManager.updateSubtask(subtasks.get(0)), "Does not update existing subtask");
-        assertTrue(taskManager.updateEpic(epic), "Does not update existing epic");
+        updateTask.setDescription("taskDesc2");
+        taskManager.updateTask(updateTask);
+
+        updateSubtask.setDescription("subtaskDesc2");
+        taskManager.updateSubtask(new Subtask("very funny subtaskName", "desc", NEW, 1));
+        updateEpic.setDescription("epicDesc2");
+        taskManager.updateEpic(new Epic("very funny epicName", "desc", NEW));
+
+        assertTrue(taskManager.getTasks().contains(updateTask), "Does not update existing task");
+        assertTrue(taskManager.getSubtasks().contains(updateSubtask), "Does not update existing subtask");
+        assertTrue(taskManager.getEpics().contains(updateEpic), "Does not update existing epic");
     }
 
     // Tests for delete functions

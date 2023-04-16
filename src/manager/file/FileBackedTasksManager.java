@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,10 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
 
     public FileBackedTasksManager(File file) {
         this.file = file;
+    }
+
+    public FileBackedTasksManager() {
+        this.file = Path.of("resources/tasks.csv").toFile();
     }
 
     // loads saved task/Task, task/Subtask/ task/Epic from a csv file
@@ -187,27 +192,21 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
     }
 
     @Override
-    public boolean updateTask(Task task) {
-        boolean check = super.updateTask(task);
+    public void updateTask(Task task) {
+        super.updateTask(task);
         saver();
-
-        return check;
     }
 
     @Override
-    public boolean updateSubtask(Subtask subtask) {
-        boolean check = super.updateSubtask(subtask);
+    public void updateSubtask(Subtask subtask) {
+        super.updateSubtask(subtask);
         saver();
-
-        return check;
     }
 
     @Override
-    public boolean updateEpic(Epic epic) {
-        boolean check = super.updateEpic(epic);
+    public void updateEpic(Epic epic) {
+        super.updateEpic(epic);
         saver();
-
-        return check;
     }
 
     @Override
