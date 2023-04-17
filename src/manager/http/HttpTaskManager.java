@@ -12,8 +12,8 @@ import java.net.URI;
 
 public class HttpTaskManager extends FileBackedTasksManager {
 
-    private KVTaskClient taskClient;
-    private Gson gson;
+    private final KVTaskClient taskClient;
+    private final Gson gson;
 
     public HttpTaskManager(URI url) {
         super();
@@ -26,26 +26,38 @@ public class HttpTaskManager extends FileBackedTasksManager {
 
     @Override
     public int addNewTask(Task task) {
-        task.setId(++generatorId);
+        int id = super.addNewTask(task);
+
+        if (id == -1)
+            return -1;
+
         taskClient.put(task.getId().toString(), gson.toJson(task));
 
-        return generatorId;
+        return id;
     }
 
     @Override
     public int addNewSubtask(Subtask subtask) {
-        subtask.setId(++generatorId);
+        int id = super.addNewSubtask(subtask);
+
+        if (id == -1)
+            return -1;
+
         taskClient.put(subtask.getId().toString(), gson.toJson(subtask));
 
-        return generatorId;
+        return id;
     }
 
     @Override
     public int addNewEpic(Epic epic) {
-        epic.setId(++generatorId);
+        int id = super.addNewEpic(epic);
+
+        if (id == -1)
+            return -1;
+
         taskClient.put(epic.getId().toString(), gson.toJson(epic));
 
-        return generatorId;
+        return id;
     }
 
     @Override
@@ -65,16 +77,26 @@ public class HttpTaskManager extends FileBackedTasksManager {
 
     @Override
     public void updateTask(Task task) {
+        if (task.getId() == null)
+            return;
+
         taskClient.put(task.getId().toString(), gson.toJson(task));
     }
 
     @Override
     public void updateSubtask(Subtask subtask) {
+        if (subtask.getId() == null) {
+            return;
+        }
+
         taskClient.put(subtask.getId().toString(), gson.toJson(subtask));
     }
 
     @Override
     public void updateEpic(Epic epic) {
+        if (epic.getId() == null)
+            return;
+
         taskClient.put(epic.getId().toString(), gson.toJson(epic));
     }
 }

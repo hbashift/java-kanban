@@ -269,7 +269,7 @@ public class InMemoryTasksManager implements TaskManager {
     }
 
     // taskStatus checker for task.Epic
-    private TaskStatus checkEpicStatus(Epic epic) {
+    protected TaskStatus checkEpicStatus(Epic epic) {
         TaskStatus checker = TaskStatus.NEW;
         ArrayList<TaskStatus> taskStatusArrayList = new ArrayList<>();
 
@@ -293,7 +293,7 @@ public class InMemoryTasksManager implements TaskManager {
     }
 
     // taskStatus changer
-    private void changeEpicStatus(Subtask subtask) {
+    protected void changeEpicStatus(Subtask subtask) {
         Epic epic = epics.get(subtask.getEpicId());
         TaskStatus taskStatus = checkEpicStatus(epics.get(subtask.getEpicId()));
 

@@ -22,7 +22,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     protected Epic epic;
     protected Subtask subtask;
     private List<Subtask> subtasks;
-    private final String error = "Epic имеет статус";
+    private final String error = "Epic имеет статус ";
 
     protected List<Subtask> createSubtasks(TaskStatus status1, TaskStatus status2, TaskStatus status3, int epicId) {
 
@@ -146,7 +146,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         taskManager.addNewSubtask(subtask3);
 
         // If all subtasks have TaskStatus.DONE, then their Epic must have TaskStatus.DONE
-        assertEquals(DONE, epic.getStatus(), error + epic.getStatus().toString() + "вместо DONE");
+        assertEquals(DONE, epic.getStatus(), error + epic.getStatus().toString() + " вместо DONE");
     }
 
     @Test
@@ -275,9 +275,9 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         taskManager.updateTask(updateTask);
 
         updateSubtask.setDescription("subtaskDesc2");
-        taskManager.updateSubtask(new Subtask("very funny subtaskName", "desc", NEW, 1));
+        taskManager.updateSubtask(updateSubtask);
         updateEpic.setDescription("epicDesc2");
-        taskManager.updateEpic(new Epic("very funny epicName", "desc", NEW));
+        taskManager.updateEpic(updateEpic);
 
         assertTrue(taskManager.getTasks().contains(updateTask), "Does not update existing task");
         assertTrue(taskManager.getSubtasks().contains(updateSubtask), "Does not update existing subtask");

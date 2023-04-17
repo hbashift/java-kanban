@@ -55,9 +55,8 @@ public class KVTaskClient {
                     System.out.println("В запросе содержится ошибка. Проверьте параметры и повторите запрос.");
                     break;
                 case 403:
-                    System.out.println(
-                            "Неверный API_TOKEN. Пожалуйста, проверьте API_TOKEN на корректность и повторите "
-                                    + "запрос");
+                    System.out.println("Неверный API_TOKEN. Пожалуйста, проверьте API_TOKEN "
+                            + "на корректность и повторите запрос");
                     break;
                 case 404:
                     System.out.println("По указанному адресу нет ресурса. "
